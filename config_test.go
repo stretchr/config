@@ -46,3 +46,13 @@ func TestConfig_Data(t *testing.T) {
 	assert.NotNil(t, c.Data())
 
 }
+
+func TestConfig_Get(t *testing.T) {
+
+	c := new(Config)
+	c.Parse([]byte(`{"name":"Mathew","age":29,"location":["London, UK", "Boulder, CO"],"nested":{"value":1}}`))
+
+	assert.Equal(t, "Mathew", c.Get("name"))
+	assert.Equal(t, 1, c.Get("nested.value"))
+
+}

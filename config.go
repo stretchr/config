@@ -60,3 +60,8 @@ func (c *Config) Data() objects.Map {
 
 	return c.data
 }
+
+// Gets a value from the config.  Key paths are supported.
+func (c *Config) Get(keypath string) interface{} {
+	return c.Data().Get(keypath)
+}
