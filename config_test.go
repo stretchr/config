@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestLoad(t *testing.T) {
+func TestConfig_Load(t *testing.T) {
 
 	c := new(Config)
 	loadErr := c.Load("./test_files/test_config.json")
@@ -16,7 +16,7 @@ func TestLoad(t *testing.T) {
 
 }
 
-func TestParse(t *testing.T) {
+func TestConfig_Parse(t *testing.T) {
 
 	c := new(Config)
 	err := c.Parse([]byte(`{"name":"Mat","age":29,"location":["London, UK", "Boulder, CO"],"nested":{"value":1}}`))
@@ -27,7 +27,7 @@ func TestParse(t *testing.T) {
 
 }
 
-func TestParse_Inherited(t *testing.T) {
+func TestConfig_Parse_Inherited(t *testing.T) {
 
 	c := new(Config)
 	err1 := c.Parse([]byte(`{"name":"Mathew","age":29,"location":["London, UK", "Boulder, CO"],"nested":{"value":1}}`))
@@ -40,7 +40,7 @@ func TestParse_Inherited(t *testing.T) {
 
 }
 
-func TestData(t *testing.T) {
+func TestConfig_Data(t *testing.T) {
 
 	c := new(Config)
 	assert.NotNil(t, c.Data())
