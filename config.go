@@ -2,7 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/stretchrcom/stew/objects"
+	"github.com/stretchr/stew/objects"
 	"io/ioutil"
 	"sync"
 )
