@@ -2,14 +2,14 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/stretchr/stew/objects"
+	"github.com/stretchr/objx"
 	"io/ioutil"
 	"sync"
 )
 
 // Config represents a configuration object driven by a JSON file.
 type Config struct {
-	data objects.Map
+	data objx.Map
 
 	dataInitOnce sync.Once
 }
@@ -37,7 +37,7 @@ func (c *Config) Load(filename string) error {
 // merge the data fields together.
 func (c *Config) Parse(data []byte) error {
 
-	var newData objects.Map
+	var newData objx.Map
 	unmarshalErr := json.Unmarshal(data, &newData)
 
 	if unmarshalErr != nil {
@@ -51,11 +51,11 @@ func (c *Config) Parse(data []byte) error {
 	return nil
 }
 
-// Data gets the raw objects.Map data object for this configuration object.
-func (c *Config) Data() objects.Map {
+// Data gets the raw objx.Map data object for this configuration object.
+func (c *Config) Data() objx.Map {
 
 	c.dataInitOnce.Do(func() {
-		c.data = make(objects.Map)
+		c.data = make(objx.Map)
 	})
 
 	return c.data
@@ -63,5 +63,5 @@ func (c *Config) Data() objects.Map {
 
 // Gets a value from the config.  Key paths are supported.
 func (c *Config) Get(keypath string) interface{} {
-	return c.Data().Get(keypath)
+	return c.Data().Get(keypath).Data()
 }
