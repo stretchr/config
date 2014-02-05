@@ -1,3 +1,4 @@
 {
-	"name": "Mat"
+	# Comments can appear on their own line
+	"name": "Mat" # Comments can appear at the end of a line
 }

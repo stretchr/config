@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/stretchr/objx"
 	"io/ioutil"
 	"sync"
@@ -17,11 +18,31 @@ type Config struct {
 // Load loads and parses a JSON configuration file.
 func (c *Config) Load(filename string) error {
 
-	bytes, readErr := ioutil.ReadFile(filename)
+	rawBytes, readErr := ioutil.ReadFile(filename)
 
 	if readErr != nil {
 		return readErr
 	}
+
+	bytes := make([]byte, 0, len(rawBytes))
+
+	skip := false
+	for i := 0; i < len(rawBytes); i++ {
+		if skip == true {
+			if rawBytes[i] == '\n' {
+				skip = false
+			} else {
+				continue
+			}
+		}
+		if rawBytes[i] == '#' {
+			skip = true
+			continue
+		}
+		bytes = append(bytes, rawBytes[i])
+	}
+
+	fmt.Printf("%#v\n", string(bytes))
 
 	parseErr := c.Parse(bytes)
 
