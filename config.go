@@ -2,7 +2,6 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/stretchr/objx"
 	"io/ioutil"
 	"sync"
@@ -41,8 +40,6 @@ func (c *Config) Load(filename string) error {
 		}
 		bytes = append(bytes, rawBytes[i])
 	}
-
-	fmt.Printf("%#v\n", string(bytes))
 
 	parseErr := c.Parse(bytes)
 
